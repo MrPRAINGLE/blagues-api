@@ -44,13 +44,13 @@ export default class SuggestCommand extends Command {
         {
           type: ApplicationCommandOptionType.String,
           name: 'joke',
-          description: 'Contenue de la blague',
+          description: 'Contenu de la blague',
           required: true,
           max_length: 130
         },
         {
           type: ApplicationCommandOptionType.String,
-          name: 'response',
+          name: 'answer',
           description: 'Réponse de la blague',
           required: true,
           max_length: 130
@@ -96,7 +96,7 @@ export default class SuggestCommand extends Command {
     const payload = {
       type: interaction.options.getString('type', true) as Category,
       joke: interaction.options.getString('joke', true),
-      answer: interaction.options.getString('response', true)
+      answer: interaction.options.getString('answer', true)
     } as UnsignedJoke;
 
     const embed: APIEmbed = {
@@ -107,9 +107,9 @@ export default class SuggestCommand extends Command {
         name: interaction.user.tag
       },
       description: stripIndents`
-        > **Type**: ${CategoriesRefs[payload.type]}
-        > **Blague**: ${payload.joke}
-        > **Réponse**: ${payload.answer}
+        > **Type** : ${CategoriesRefs[payload.type]}
+        > **Blague** : ${payload.joke}
+        > **Réponse** : ${payload.answer}
       `,
       color: Colors.PROPOSED
     };
@@ -119,9 +119,9 @@ export default class SuggestCommand extends Command {
         {
           name: 'Blague similaire',
           value: stripIndents`
-              > **Type**: ${CategoriesRefs[currentJokes[bestMatchIndex].type as Category]}
-              > **Blague**: ${currentJokes[bestMatchIndex].joke}
-              > **Réponse**: ${currentJokes[bestMatchIndex].answer}
+              > **Type** : ${CategoriesRefs[currentJokes[bestMatchIndex].type as Category]}
+              > **Blague** : ${currentJokes[bestMatchIndex].joke}
+              > **Réponse** : ${currentJokes[bestMatchIndex].answer}
             `
         }
       ];
@@ -171,7 +171,7 @@ export default class SuggestCommand extends Command {
 
     if (confirmation.customId === 'cancel') {
       return confirmation.update({
-        content: "La blague n'a pas été envoyé",
+        content: "La blague n'a pas été envoyée",
         components: [],
         embeds: [embed]
       });
@@ -201,6 +201,6 @@ export default class SuggestCommand extends Command {
       await suggestion.react(reaction).catch(() => null);
     }
 
-    return confirmation.update(interactionValidate(`La [blague](${suggestion.url}) a été envoyé !`, false));
+    return confirmation.update(interactionValidate(`La [blague](${suggestion.url}) a été envoyée !`, false));
   }
 }

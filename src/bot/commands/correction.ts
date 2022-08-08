@@ -139,9 +139,9 @@ export default class CorrectionCommand extends Command {
     const embed = {
       title: `Quels${changes ? ' autres' : ''} changements voulez-vous faire ?`,
       description: stripIndents`
-        > **Type:** ${CategoriesRefs[joke.type]}
-        > **Question:** ${joke.joke}
-        > **Réponse:** ${joke.answer}
+        > **Type :** ${CategoriesRefs[joke.type]}
+        > **Question :** ${joke.joke}
+        > **Réponse :** ${joke.answer}
       `,
       color: Colors.PRIMARY
     };
@@ -290,7 +290,7 @@ export default class CorrectionCommand extends Command {
         interaction.channel
           ?.send(
             messageProblem(
-              `Impossible de trouver une blague ou correction liée à cet ID de blague, assurez vous que cet ID provient bien d\'un message envoyé par le bot ${interaction.client.user}`
+              `Impossible de trouver une blague ou correction liée à cet ID, assurez vous que celui-ci provient bien d\'un message envoyé par le bot ${interaction.client.user}.`
             )
           )
           .then(tDelete(5000));
@@ -482,7 +482,7 @@ export default class CorrectionCommand extends Command {
     newJoke: JokeCorrectionPayload
   ) {
     if (!(['type', 'joke', 'answer'] as UnsignedJokeKey[]).some((key) => newJoke[key] !== oldJoke[key])) {
-      await commandInteraction.editReply(interactionProblem("Aucun élément n'a été modifié"));
+      await commandInteraction.editReply(interactionProblem("Aucun élément n'a été modifié."));
       return;
     }
 
@@ -511,17 +511,17 @@ export default class CorrectionCommand extends Command {
             {
               name: 'Blague initiale',
               value: stripIndents`
-                > **Type**: ${showNegativeDiffs(CategoriesRefs[newJoke.suggestion.type], CategoriesRefs[newJoke.type])}
-                > **Blague**: ${showNegativeDiffs(newJoke.suggestion.joke, newJoke.joke)}
-                > **Réponse**: ${showNegativeDiffs(newJoke.suggestion.answer, newJoke.answer)}
+                > **Type** : ${showNegativeDiffs(CategoriesRefs[newJoke.suggestion.type], CategoriesRefs[newJoke.type])}
+                > **Blague** : ${showNegativeDiffs(newJoke.suggestion.joke, newJoke.joke)}
+                > **Réponse** : ${showNegativeDiffs(newJoke.suggestion.answer, newJoke.answer)}
               `
             },
             {
               name: 'Blague corrigée',
               value: stripIndents`
-                > **Type**: ${showPositiveDiffs(CategoriesRefs[newJoke.suggestion.type], CategoriesRefs[newJoke.type])}
-                > **Blague**: ${showPositiveDiffs(newJoke.suggestion.joke, newJoke.joke)}
-                > **Réponse**: ${showPositiveDiffs(newJoke.suggestion.answer, newJoke.answer)}
+                > **Type** : ${showPositiveDiffs(CategoriesRefs[newJoke.suggestion.type], CategoriesRefs[newJoke.type])}
+                > **Blague** : ${showPositiveDiffs(newJoke.suggestion.joke, newJoke.joke)}
+                > **Réponse** : ${showPositiveDiffs(newJoke.suggestion.answer, newJoke.answer)}
               `
             }
           ],
